@@ -1,19 +1,24 @@
-# from Paciente import Paciente
+from models.Paciente import Paciente
 from fastapi import APIRouter, Body
+from repository.pacienteRepository import criar_paciente, listar_pacientes
 
 router = APIRouter()
 
 @router.get("/")
 def listarPacientes():
-    return[{},{}]
+    resultado = listar_pacientes()
+    return resultado
 
 @router.post("/")
-def criarPacientes(usuario = Body(...)):
-    return {"teste": usuario}
+async def criarPacientes(usuario: Paciente = Body(...)):
 
-@router.get("/")
-def listarPacientes():
-    return[{},{}]
+    print(usuario)
+    resultado = await criar_paciente(usuario)
+    return resultado
+
+# @router.get("/")
+# def listarPacientes():
+#     return[{},{}]
 
 
 

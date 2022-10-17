@@ -1,5 +1,6 @@
 # # from django.db import models
 import json
+from pydantic import BaseModel, Field
 
 
 # class Paciente():
@@ -19,16 +20,19 @@ import json
 #         print(self.nome)
 
 
-class Paciente:
-    def __init__(self, nome, idade, peso, altura):
+class Paciente(BaseModel):
+
+    nome: str = Field(...)
+    idade: int = Field(...)
+    peso: int = Field(...)
+    altura: int = Field(...)
+
+
+    def __fields_set__(self, nome, idade, peso, altura):
         self.nome = nome
         self.idade = idade
         self.peso = peso
         self.altura = altura
-
-
-    def printNome(self):
-        print(self.nome)
 
     def getJson(self):
         dic = {
