@@ -3,6 +3,9 @@
 # Instalação
 Baixar o projeto do repos
 
-Executar 
+Configurar
     pip3 install -r requirements.txt
     
+Executar
+    cd api
+    uvicorn main:app --reload

@@ -16,13 +16,6 @@ async def criarPacientes(usuario: Paciente = Body(...)):
     resultado = await criar_paciente(usuario)
     return resultado
 
-# @router.get("/")
-# def listarPacientes():
-#     return[{},{}]
-
-
-
-
     
 # def Cadastrar():
 #     pNome = input("nome: ")

@@ -34,6 +34,14 @@ class Paciente(BaseModel):
         self.peso = peso
         self.altura = altura
 
+    def __dict__(self):
+        return {
+            "nome" : self.nome,
+            "idade" : self.idade,
+            "peso" : self.peso,
+            "altura" : self.altura,
+        }
+
     def getJson(self):
         dic = {
             "nome" : self.nome,

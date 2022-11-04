@@ -1,25 +1,25 @@
-import motor.motor_asyncio
-from decouple  import config
+from array import array
 from models.Paciente import Paciente
 from utils.converterUtil import paciente_converter
+from repository.database import get_database
 
-MONGODB_URL = config("MONGODB_URL")
-cliente  = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
+db = get_database()
 
-database = cliente.TCC
-
-paciente_collection = database.get_collection("paciente")
-
-async def criar_paciente(paciente: Paciente) -> dict:
-    paciente_criado = await paciente_collection.insert_one(paciente.__dict__)
-    novo_paciente = await paciente_collection.find_one({"_id": paciente_criado.inserted_id })
+def criar_paciente(paciente: Paciente) -> dict:
+    paciente_criado = db["paciente"].insert_one({
+            "nome" : paciente.nome,
+            "idade" : paciente.idade,
+            "peso" : paciente.peso,
+            "altura" : paciente.altura,
+        })
+    novo_paciente = db["paciente"].find_one({"_id": paciente_criado.inserted_id })
     return novo_paciente
 
-def listar_pacientes():
-    pacientes_encontrados = paciente_collection.aggreagate([{}])
-
+async def listar_pacientes() -> array:
     pacientes = []
-    for paciente in pacientes_encontrados:
+    
+    cursor = db["paciente"].find({})
+    for paciente in await cursor.to_list(length=1):
         pacientes.append(paciente_converter(paciente))
     
     return pacientes
