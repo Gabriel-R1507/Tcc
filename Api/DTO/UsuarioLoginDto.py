@@ -8,7 +8,7 @@ class UsuarioLoginDto(BaseModel):
     senha: str = Field(...)
 
 
-    def __fields_set__(self, login, senha, ):
+    def __fields_set__(self, login, senha):
         self.login = login
         self.senha = senha
 

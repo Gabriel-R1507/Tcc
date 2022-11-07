@@ -11,10 +11,8 @@ def listarPacientes():
 
 @router.post("/")
 async def criarPacientes(usuario: Paciente = Body(...)):
-
-    print(usuario)
-    resultado = await criar_paciente(usuario)
-    return resultado
+    return "teste"
+    
 
     
 # def Cadastrar():
