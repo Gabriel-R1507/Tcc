@@ -1,6 +1,6 @@
-from Api.models.Paciente import Paciente
 from fastapi import APIRouter, Body, HTTPException
 
+from models.Paciente import Paciente
 from models.Usuario import Usuario
 from DTO.UsuarioLoginDto import UsuarioLoginDto
 from DTO.UsuarioCreateDto import UsuarioCreateDto
@@ -21,10 +21,12 @@ async def login(usuario: UsuarioLoginDto = Body(...)):
 
 @router.post("/")
 async def criarUsuario(usuario: UsuarioCreateDto = Body(...)):
+    print(usuario)
     paciente = Paciente(usuario.nome, usuario.idade, usuario.peso, usuario.altura)
     print(paciente)
 
     pacienteCriado = await criar_paciente(usuario)
     newUser = Usuario(usuario.login, usuario.senha, pacienteCriado._id)
-    
+    print(newUser)
+
     return await criar_usuario(newUser)

@@ -6,7 +6,12 @@ class Remedio(BaseModel):
     quantidade: int = Field(...)
     isComprimido: bool = Field(...)
 
-    def __fields_set__(self, nome, quantidade, IsComprimido):
+    def __init__(self, nome, quantidade, IsComprimido):
         self.nome = nome
         self.quantidade = quantidade
         self.IsComprimido = IsComprimido
+
+    # def __fields_set__(self, nome, quantidade, IsComprimido):
+    #     self.nome = nome
+    #     self.quantidade = quantidade
+    #     self.IsComprimido = IsComprimido
