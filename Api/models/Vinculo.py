@@ -26,12 +26,14 @@ class Vinculo():
     paciente: str
     remedio: int
     data: datetime
+    isLow: bool
 
 
-    def __init__(self, paciente, remedio, data):
+    def __init__(self, paciente, remedio, data, isLow):
         self.paciente = paciente
         self.remedio = remedio
         self.data = data
+        self.isLow = isLow
 
     def getJson(self):
         dic = {
