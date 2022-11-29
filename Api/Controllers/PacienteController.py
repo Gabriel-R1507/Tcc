@@ -1,31 +1,41 @@
-from models.Paciente import Paciente
+from datetime import datetime, timedelta
+from models.Vinculo import Vinculo
+from models.Remedio import Remedio
+from DTO.LinkRemedioDto import LinkRemedioDto
+from DTO.ConsultarRemedioDto import ConsultarRemedioDto
 from fastapi import APIRouter, Body
-from repository.pacienteRepository import criar_paciente, listar_pacientes
+from repository.pacienteRepository import listar_vinculos
 
 router = APIRouter()
 
-@router.get("/")
-def listarPacientes():
-    resultado = listar_pacientes()
+@router.post("/medicamentos")
+def listarRemedios(data: ConsultarRemedioDto):
+    dia = datetime.strptime(data.dia, '%d/%m/%y')
+    resultado = listar_vinculos(data.paciente, dia)
+
     return resultado
 
-@router.post("/")
-async def criarPacientes(usuario: Paciente = Body(...)):
+@router.post("/new")
+async def criarPacientes(data: LinkRemedioDto = Body(...)):
+    inicial = datetime.strptime(data.inicial, '%d/%m/%y %H:%M:%S')
+    horario = inicial
+    vezesAoDia = int(24 / data.frequencia)
+    ranges = vezesAoDia * data.tempo
 
-    print(usuario)
-    resultado = await criar_paciente(usuario)
-    return resultado
+    #var remedio = get remedio by id (data.remedio)
+    remedio = Remedio("testeRemedio", 10, True)
+    d2 = remedio.quantidade - 2
+    d1 = remedio.quantidade - 1
+    for i in range(ranges):
+        if(i % remedio.quantidade == 1 or i % remedio.quantidade == 2):
+            vinc = Vinculo(data.paciente, data.remedio, horario, True)    
+        
+        else:
+            vinc = Vinculo(data.paciente, data.remedio, horario, False)
 
-    
-# def Cadastrar():
-#     pNome = input("nome: ")
-#     pIdade = int(input("idade: "))
-#     pPeso = input("peso: ")
-#     paltura = input("altura: ")
-    
-#     testePaciente = Paciente(pNome, pIdade, pPeso, paltura)
+        print(vinc.__dict__)
+        #envia pro banco pra criar
 
-#     print(testePaciente.getJson())
+        horario = horario + timedelta(hours=data.frequencia)
 
-
-# Cadastrar()
+    return horario

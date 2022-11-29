@@ -1,12 +1,17 @@
 import json
 from pydantic import BaseModel, Field
 
-class Remedio(BaseModel):
-    nome: str = Field(...)
-    quantidade: int = Field(...)
-    isComprimido: bool = Field(...)
+class Remedio():
+    nome: str 
+    quantidade: int
+    isComprimido: bool
 
-    def __fields_set__(self, nome, quantidade, IsComprimido):
+    def __init__(self, nome, quantidade, IsComprimido):
         self.nome = nome
         self.quantidade = quantidade
         self.IsComprimido = IsComprimido
+
+    # def __fields_set__(self, nome, quantidade, IsComprimido):
+    #     self.nome = nome
+    #     self.quantidade = quantidade
+    #     self.IsComprimido = IsComprimido

@@ -10,3 +10,10 @@ async def login(usuario: UsuarioLoginDto) -> dict:
     
     if usuariofound:
         return usuario_converter(usuariofound)
+
+
+async def criar_usuario(usuario: UsuarioLoginDto) -> dict:
+    usuariofound = await db["usuario"].find_one({"login": usuario.login, "senha": usuario.senha })
+    
+    if usuariofound:
+        return usuario_converter(usuariofound)

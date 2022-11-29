@@ -2,27 +2,24 @@
 import json
 from pydantic import BaseModel, Field
 
-
-class Usuario(BaseModel):
+class UsuarioCreateDto(BaseModel):
 
     login: str = Field(...)
     senha: str = Field(...)
-    idPaciente: int = Field(...)
-    isAdmin: bool = Field(...)
+    nome: str = Field(...)
+    idade: str = Field(...)
+    peso: str = Field(...)
+    altura: str = Field(...)
 
 
-    def __fields_set__(self, login, senha, IdPaciente, IsAdmin):
+    def __fields_set__(self, login, senha):
         self.login = login
         self.senha = senha
-        self.IdPaciente = IdPaciente
-        self.IsAdmin = IsAdmin
 
     def getJson(self):
         dic = {
             "login" : self.login,
             "senha" : self.senha,
-            "IdPaciente" : self.IdPaciente,
-            "IsAdmin" : self.IsAdmin,
         }
 
         return json.dumps(dic)
