@@ -1,5 +1,4 @@
 import json
-from pydantic import BaseModel, Field
 
 class Remedio():
     nome: str 

@@ -1,14 +1,12 @@
 # # from django.db import models
 import json
-from pydantic import BaseModel, Field
 
+class Usuario():
 
-class Usuario(BaseModel):
-
-    login: str = Field(...)
-    senha: str = Field(...)
-    idPaciente: int = Field(...)
-    isAdmin: bool = Field(...)
+    login: str
+    senha: str
+    idPaciente: int
+    isAdmin: bool
 
 
     def __fields_set__(self, login, senha, IdPaciente, IsAdmin):

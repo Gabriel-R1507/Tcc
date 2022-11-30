@@ -21,12 +21,10 @@ async def login(usuario: UsuarioLoginDto = Body(...)):
 
 @router.post("/")
 async def criarUsuario(usuario: UsuarioCreateDto = Body(...)):
-    print(usuario)
     paciente = Paciente(usuario.nome, usuario.idade, usuario.peso, usuario.altura)
-    print(paciente)
+    paciente.save()
 
-    pacienteCriado = await criar_paciente(usuario)
-    newUser = Usuario(usuario.login, usuario.senha, pacienteCriado._id)
+    newUser = Usuario(usuario.login, usuario.senha, paciente._id)
     print(newUser)
 
     return await criar_usuario(newUser)
