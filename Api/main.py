@@ -6,7 +6,7 @@ from Controllers.UsuarioController import router as UsuarioController
 app = FastAPI()
 app.include_router(PacienteController, tags=["Pacientes"], prefix="/api/paciente")
 app.include_router(RemedioController, tags=["Remedios"], prefix="/api/remedio")
-app.include_router(UsuarioController, tags=["Usuario"], prefix="/api/login")
+app.include_router(UsuarioController, tags=["Usuario"], prefix="/api")
 
 @app.get("/api/health", tags=["Health"])
 def listPacientes():

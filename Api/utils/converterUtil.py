@@ -15,5 +15,15 @@ def usuario_converter(usuario):
 def remedio_converter(remedio):
     return {
         "id": str(remedio["_id"]) if "_id" in remedio else "",
-        "nome": remedio["nome"] if "nome" in remedio else "" 
+        "nome": remedio["nome"] if "nome" in remedio else "" ,
+        "isComprimido": remedio["isComprimido"] if "isComprimido" in remedio else ""
+    }
+
+def vinculo_converter(vinculo):
+    return {
+        "id": str(vinculo["_id"]) if "_id" in vinculo else "",
+        "paciente": vinculo["paciente"] if "paciente" in vinculo else "",
+        "remedio": vinculo["remedio"] if "remedio" in vinculo else "",
+        "isLow": vinculo["isLow"] if "isLow" in vinculo else "",
+        "data": vinculo["data"] if "data" in vinculo else "" 
     }

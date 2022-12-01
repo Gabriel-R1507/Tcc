@@ -4,6 +4,7 @@ from models.Paciente import Paciente
 from utils.converterUtil import paciente_converter
 from repository.database import get_database
 
+
 db = get_database()
 
 def criar_paciente(paciente: Paciente) -> dict:
@@ -14,7 +15,7 @@ def criar_paciente(paciente: Paciente) -> dict:
             "altura" : paciente.altura,
         })
     novo_paciente = db["paciente"].find_one({"_id": paciente_criado.inserted_id })
-    return novo_paciente
+    return paciente_converter(novo_paciente)
 
 async def listar_vinculos(paciente:str, dia:datetime) -> array:
 
