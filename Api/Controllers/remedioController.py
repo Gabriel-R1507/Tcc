@@ -7,16 +7,16 @@ router = APIRouter()
 
 @router.get("/")
 async def listarRemedios():
-    remedios = await listar_remedios() 
+    remedios = listar_remedios() 
     return remedios
 
 @router.post("/")
 async def criarRemedios(data: RemedioDto = Body(...)):
-    remedioOld = await consultar_remedios(data.nome)
+    remedioOld = consultar_remedios(data.nome)
     if(remedioOld):
         return "Remédio "+data.nome+" já existe"
 
     remedio = Remedio(data.nome, data.quantidade, data.isComprimido)
     
-    resultado = await criar_remedio(remedio)
+    resultado = criar_remedio(remedio)
     return resultado

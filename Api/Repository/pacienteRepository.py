@@ -1,9 +1,8 @@
-from array import array
 import datetime
+from models.Vinculo import Vinculo
 from models.Paciente import Paciente
-from utils.converterUtil import paciente_converter
+from utils.converterUtil import paciente_converter, vinculo_converter
 from repository.database import get_database
-
 
 db = get_database()
 
@@ -17,14 +16,14 @@ def criar_paciente(paciente: Paciente) -> dict:
     novo_paciente = db["paciente"].find_one({"_id": paciente_criado.inserted_id })
     return paciente_converter(novo_paciente)
 
-async def listar_vinculos(paciente:str, dia:datetime) -> array:
+def criar_vinculos(vinc: Vinculo) -> dict:
+    created = db["vinculo"].insert_one(vinc.__dict__)
+    new = db["vinculo"].find_one({"_id": created.inserted_id })
+    return vinculo_converter(new)
 
-
+def listar_vinculos(paciente:str):
+    vinculos = []
+    for vinculo in db["vinculo"].find({"paciente": paciente}):
+        vinculos.append(vinculo_converter(vinculo))
     
-    pacientes = []
-    
-    cursor = db["paciente"].find({})
-    for paciente in await cursor.to_list(length=1):
-        pacientes.append(paciente_converter(paciente))
-    
-    return pacientes
+    return vinculos

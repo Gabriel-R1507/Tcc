@@ -16,7 +16,8 @@ def remedio_converter(remedio):
     return {
         "id": str(remedio["_id"]) if "_id" in remedio else "",
         "nome": remedio["nome"] if "nome" in remedio else "" ,
-        "isComprimido": remedio["isComprimido"] if "isComprimido" in remedio else ""
+        "isComprimido": remedio["isComprimido"] if "isComprimido" in remedio else "",
+        "quantidade": remedio["quantidade"] if "quantidade" in remedio else ""
     }
 
 def vinculo_converter(vinculo):
